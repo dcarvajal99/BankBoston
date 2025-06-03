@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.grupo5.bankboston;
 
-/**
- *
- * @author grupo5
- */
-public class Cliente {
+import com.grupo5.bankboston.cuentas.Cuenta;
+
+import java.util.List;
+
+public class Cliente implements IMostrable {
     private String rut;
     private String nombre;
     private String apellido_paterno;
@@ -16,9 +12,9 @@ public class Cliente {
     private String domicilio;
     private String comuna;
     private String telefono;
-    private Cuenta cuenta;
+    private List<Cuenta> cuentas;
 
-    public Cliente(String rut, String nombre, String apellido_paterno, String apellido_materno, String domicilio, String comuna, String telefono, Cuenta cuenta) {
+    public Cliente(String rut, String nombre, String apellido_paterno, String apellido_materno, String domicilio, String comuna, String telefono, List<Cuenta> cuentas) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido_paterno = apellido_paterno;
@@ -26,7 +22,7 @@ public class Cliente {
         this.domicilio = domicilio;
         this.comuna = comuna;
         this.telefono = telefono;
-        this.cuenta = cuenta;
+        this.cuentas = cuentas;
     }
 
     public String getRut() {
@@ -85,16 +81,25 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public Cuenta getCuenta() {
-        return cuenta;
+    public List<Cuenta> getCuentas() {
+        return cuentas;
     }
 
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
+    @Override
+    public void mostrarInformacion() {
+        System.out.println(this.toString());
     }
 
     @Override
     public String toString() {
+        StringBuilder cuentasStr = new StringBuilder();
+        for (Cuenta c : cuentas) {
+            cuentasStr.append(c.toString()).append("\n");
+        }
         return "\n===== Cliente =====\n" +
                 "RUT: " + rut + "\n" +
                 "Nombre: " + nombre + "\n" +
@@ -103,7 +108,7 @@ public class Cliente {
                 "Domicilio: " + domicilio + "\n" +
                 "Comuna: " + comuna + "\n" +
                 "Teléfono: " + telefono + "\n" +
-                "Cuenta: " + cuenta + "\n" +
+                "Cuentas:\n" + cuentasStr +
                 "==================\n";
     }
 }
